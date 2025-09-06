@@ -843,10 +843,294 @@ echo "🎉 CLI validation complete!"
 
 ---
 
+## Дополнительная функциональность CLI (Расширенная версия)
+
+### Полный спектр команд для управления платформой
+
+После успешной реализации базовой команды `add`, CLI может быть расширен следующим функционалом:
+
+#### **1. Управление модулями**
+
+```bash
+# Создание нового модуля из template
+info_tech_cli create docker-basics --title "Docker для начинающих" \
+    --description "Изучите основы контейнеризации" \
+    --difficulty beginner --duration "4-6 часов"
+
+# Список всех модулей с фильтрацией
+info_tech_cli list --status active --difficulty beginner --format table
+info_tech_cli list --json  # Для скриптов
+
+# Подробная информация о модуле
+info_tech_cli info linux-base --show-stats --show-health
+
+# Управление статусом модулей
+info_tech_cli archive linux-professional --reason "Устаревший контент"
+info_tech_cli unarchive linux-professional
+info_tech_cli set-status linux-advanced draft  # active|draft|archived|maintenance
+```
+
+#### **2. Развертывание и мониторинг**
+
+```bash
+# Управление развертыванием
+info_tech_cli build linux-base --force --wait
+info_tech_cli status linux-advanced --detailed
+info_tech_cli logs linux-base --lines 100 --follow
+info_tech_cli rollback linux-base --to-version v1.2.0
+
+# Массовые операции
+info_tech_cli build-all --exclude linux-professional
+info_tech_cli update-all --dry-run --report
+```
+
+#### **3. Валидация и качество**
+
+```bash
+# Валидация контента
+info_tech_cli validate /path/to/module --strict --fix-auto
+info_tech_cli validate-all --format json --output report.json
+
+# Тестирование Quiz Engine
+info_tech_cli test-quiz /path/to/quiz.json --verbose
+info_tech_cli generate-quiz-template --questions 10 --types multiple-choice,true-false
+
+# Проверка качества
+info_tech_cli check-links linux-base --fix-broken --external
+info_tech_cli check-images linux-base --optimize --webp
+info_tech_cli audit-content linux-base --spelling --grammar
+```
+
+#### **4. Конфигурация и настройка**
+
+```bash
+# Инициализация и настройка
+info_tech_cli init --interactive
+info_tech_cli config set github-token ghp_xxx... --encrypt
+info_tech_cli config set server-url https://infotecha.ru
+info_tech_cli config list --show-secrets
+
+# Профили конфигурации
+info_tech_cli config create-profile production
+info_tech_cli config use-profile development
+info_tech_cli config export --profile production --output config.yml
+```
+
+#### **5. Диагностика и мониторинг**
+
+```bash
+# Системное здоровье
+info_tech_cli health --all-services --detailed --alert-threshold high
+info_tech_cli diagnose linux-base --deep-scan --fix-suggestions
+info_tech_cli doctor --interactive --fix-issues
+
+# Мониторинг и метрики
+info_tech_cli metrics linux-base --period 30d --chart --export csv
+info_tech_cli performance-report --all-modules --compare-periods
+info_tech_cli uptime-check --all-subdomains --alert-on-failure
+
+# SSL и безопасность
+info_tech_cli check-ssl --all-modules --renewal-alerts
+info_tech_cli security-audit --vulnerabilities --recommendations
+```
+
+#### **6. Работа с контентом**
+
+```bash
+# Создание контента
+info_tech_cli add-topic linux-base "Тема 3: Продвинутые команды" --interactive
+info_tech_cli add-lesson linux-base/topic-01 "Урок 1.4: Практические упражнения"
+info_tech_cli create-quiz linux-base --questions 10 --template advanced
+
+# Конвертация и импорт
+info_tech_cli convert /path/to/docs --from docusaurus --to hugo
+info_tech_cli import-content --from-url https://example.com/course --module new-course
+info_tech_cli migrate-legacy /path/to/old-format --backup
+```
+
+#### **7. Аналитика и отчетность**
+
+```bash
+# Статистика использования
+info_tech_cli analytics --module linux-base --period 7d
+info_tech_cli user-stats --global --export json
+info_tech_cli popular-content --top 10 --trend-analysis
+
+# Отчеты
+info_tech_cli report content-quality --all-modules --format html
+info_tech_cli report performance --include-recommendations
+info_tech_cli report quiz-completion --module linux-base --detailed
+```
+
+#### **8. Автоматизация и интеграции**
+
+```bash
+# CI/CD интеграции
+info_tech_cli webhook create --module linux-base --trigger content-update
+info_tech_cli pipeline status --all --format table
+info_tech_cli deploy-pipeline --module linux-base --environment staging
+
+# Внешние интеграции
+info_tech_cli sync-analytics --provider google-analytics --setup
+info_tech_cli backup-content --s3-bucket infotecha-backups --encrypt
+info_tech_cli notify --slack --channel devops --message "Deploy complete"
+```
+
+### **Пользовательский опыт и интерфейс**
+
+#### **Интерактивные режимы:**
+```bash
+# Пошаговые мастера
+info_tech_cli create --wizard  # Пошаговое создание модуля
+info_tech_cli diagnose --interactive  # Интерактивная диагностика
+info_tech_cli setup --guided  # Настройка с подсказками
+```
+
+#### **Богатый вывод:**
+```bash
+# Прогресс-бары для длительных операций
+Building module docker-basics...
+████████████████████████████████████ 100% (45s)
+
+# Цветной и структурированный вывод
+✅ Repository created: https://github.com/info-tech-io/mod_docker_basics
+🔄 Applying template...
+✅ Placeholders replaced
+⚙️  Configuring GitHub secrets...
+✅ Secrets configured
+🏗️  Building module...
+✅ Module deployed to https://docker-basics.infotecha.ru
+
+# Таблицы и списки
+╭─────────────────┬─────────┬──────────────┬─────────────╮
+│ Module          │ Status  │ Last Updated │ Health      │
+├─────────────────┼─────────┼──────────────┼─────────────┤
+│ linux-base      │ active  │ 2 hours ago  │ healthy ✅  │
+│ linux-advanced  │ active  │ 1 day ago    │ healthy ✅  │
+│ docker-basics   │ draft   │ just now     │ building 🔄 │
+╰─────────────────┴─────────┴──────────────┴─────────────╯
+```
+
+### **Архитектура расширенного CLI**
+
+#### **Модульная структура:**
+```
+info_tech_cli/
+├── commands/
+│   ├── __init__.py
+│   ├── module.py      # create, list, info, archive
+│   ├── deploy.py      # build, status, logs, rollback
+│   ├── content.py     # validate, test-quiz, check-links
+│   ├── config.py      # init, config management
+│   ├── monitor.py     # health, diagnose, metrics
+│   ├── analytics.py   # stats, reports, insights
+│   └── automation.py  # webhooks, pipelines, integrations
+├── core/
+│   ├── api_client.py  # GitHub/Server API клиент
+│   ├── config.py      # Управление конфигурацией
+│   ├── utils.py       # Общие утилиты
+│   └── validators.py  # Валидация данных
+├── templates/         # Шаблоны для генерации
+└── plugins/          # Расширяемость через плагины
+```
+
+#### **Конфигуральный файл (config.yml):**
+```yaml
+profiles:
+  development:
+    github:
+      org: info-tech-io
+      token: ${GITHUB_TOKEN}
+    server:
+      url: http://localhost:1313
+      ssh_key: ~/.ssh/dev_key
+  production:
+    github:
+      org: info-tech-io  
+      token: ${PROD_GITHUB_TOKEN}
+    server:
+      url: https://infotecha.ru
+      ssh_key: ~/.ssh/prod_key
+    notifications:
+      slack_webhook: ${SLACK_WEBHOOK}
+      email: admin@infotecha.ru
+
+current_profile: development
+
+defaults:
+  build_timeout: 300
+  validation_level: strict
+  auto_backup: true
+```
+
+### **Приоритизация по фазам**
+
+#### **Фаза 1 (MVP) - Основные команды:**
+- ✅ `add` - добавление модулей (уже реализовано)
+- 🔄 `create` - создание из template
+- 🔄 `list` - просмотр модулей
+- 🔄 `build` - ручная сборка
+- 🔄 `config` - настройка токенов
+
+#### **Фаза 2 - Мониторинг и диагностика:**
+- `status`/`logs` - мониторинг развертывания
+- `health`/`diagnose` - диагностика проблем
+- `validate` - проверка контента
+- `metrics` - базовая аналитика
+
+#### **Фаза 3 - Автоматизация:**
+- Массовые операции (`build-all`, `validate-all`)
+- Интерактивные режимы
+- Интеграции с внешними системами
+- Расширенная аналитика
+
+#### **Фаза 4 - Enterprise функции:**
+- Плагины и расширения
+- Сложная аналитика и BI
+- Многопользовательность
+- API для интеграций
+
+### **Технические требования**
+
+#### **Зависимости:**
+```requirements.txt
+click>=8.0.0          # CLI framework
+requests>=2.28.0      # HTTP клиент
+PyYAML>=6.0          # YAML конфигурация
+rich>=12.0.0         # Богатый вывод
+inquirer>=2.10.0     # Интерактивные промпты
+jinja2>=3.1.0        # Шаблоны
+cryptography>=3.4.0  # Шифрование токенов
+python-dotenv>=0.19.0 # .env файлы
+pytest>=7.0.0        # Тестирование
+```
+
+#### **Системные требования:**
+- Python 3.8+
+- Git (для работы с репозиториями)
+- SSH клиент (для развертывания)
+- 50MB свободного места
+- Интернет соединение
+
+---
+
 ## Заключение этапа 5
 
-CLI инструмент является **удобным дополнением** к платформе, но не критичен для MVP. 
+CLI инструмент представляет **мощную систему автоматизации** для управления платформой InfoTech.io.
 
-**Рекомендация:** Реализовать после успешного запуска основной платформы и первых модулей.
+**Преимущества полноценного CLI:**
+- ⚡ **Экономия времени:** Автоматизация рутинных задач
+- 🎯 **Консистентность:** Стандартизированные процессы
+- 🔍 **Мониторинг:** Проактивное отслеживание состояния
+- 🛠️ **Диагностика:** Быстрое выявление и решение проблем
+- 📊 **Аналитика:** Инсайты для улучшения платформы
+
+**Стратегия реализации:**
+1. **MVP (Фаза 1):** Базовые команды для запуска
+2. **Стабилизация:** Мониторинг и диагностика  
+3. **Масштабирование:** Автоматизация и аналитика
+4. **Enterprise:** Расширения и интеграции
+
+**Рекомендация:** Начать с MVP версии после успешного развертывания основной платформы, затем итеративно расширять функциональность на основе реальных потребностей.
 
 **Следующий этап:** Развертывание платформы на сервере
