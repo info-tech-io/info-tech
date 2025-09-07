@@ -14,3 +14,6 @@ workspace/
 # OS файлы
 .DS_Store
 Thumbs.db
+
+# Конфиденциальная информация
+context
