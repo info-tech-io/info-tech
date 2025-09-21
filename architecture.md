@@ -71,8 +71,8 @@ infotecha.ru                    # Главный хаб (ОСЬ)
 ```
 info-tech-io/
 ├── infotecha              # Центральный хаб
-├── hugo-base             # Базовый шаблон модулей
-├── quiz                  # Quiz Engine
+├── hugo-templates         # Фабрика шаблонов для сборки модулей
+├���─ quiz                  # Quiz Engine
 ├── mod_linux_base        # Контент: Основы Linux
 ├── mod_linux_advanced    # Контент: Продвинутый Linux
 ├── mod_linux_professional # Контент: Linux для профессионалов
@@ -83,13 +83,12 @@ info-tech-io/
 ### Ключевые репозитории
 
 #### 1. `infotecha` - Центральный хаб
-**Назначение:** Управление платформой, реестр модулей, главная страница  
+**Назначение:** Управление платформой, запуск сборки модулей, главная страница  
 **Технологии:** HTML, CSS, JavaScript, GitHub Actions  
 **Структура:**
 ```
 infotecha/
 ├── index.html                    # Главная страница
-├── modules.json                  # Реестр модулей
 ├── assets/                       # Статические ресурсы
 ├── .github/workflows/
 │   ├── module-updated.yml        # Обработка изменений модулей
@@ -97,32 +96,31 @@ infotecha/
 └── scripts/                      # Утилиты платформы
 ```
 
-#### 2. `hugo-base` - Базовый шаблон
-**Назначение:** Единая тема, компоненты, стили для всех модулей  
-**Технологии:** Hugo, Compose Theme, Quiz Engine Integration  
+#### 2. `hugo-templates` - Фабрика шаблонов
+**Назначение:** Предоставляет набор шаблонов, тем и компонентов для сборки модулей  
+**Технологии:** Hugo, Go Templates, Node.js, JSON Schema  
 **Структура:**
 ```
-hugo-base/
-├── hugo.toml                     # Конфигурация Hugo
-├── content/                      # Структура контента
-├── layouts/                      # Шаблоны страниц
-├── static/                       # Статические ресурсы
-│   └── quiz/                     # Quiz Engine файлы
-├── themes/compose/               # Git submodule - Hugo theme
-└── .github/workflows/            # CI/CD для шаблона
+hugo-templates/
+├── templates/                    # Коллекция шаблонов (e.g., minimal, default)
+├── themes/                       # Коллекция тем (e.g., compose)
+├── components/                   # Переиспользуемые компоненты (e.g., quiz-engine)
+├── schemas/                      # JSON схемы для валидации
+├── scripts/                      # Скрипты для сборки и автоматизации
+└── package.json                  # npm-пакет для CLI
 ```
 
 #### 3. `mod_*` - Образовательные модули
-**Назначение:** Контент курсов, уроки, тесты  
-**Технологии:** Markdown, Quiz Engine JSON  
+**Назначение:** Контент курсов, уроки, тесты и метаданные модуля  
+**Технологии:** Markdown, Quiz Engine JSON, JSON  
 **Структура (пример `mod_linux_base`):**
 ```
 mod_linux_base/
+├── module.json                   # Метаданные и конфигурация сборки модуля
 ├── content/
 │   ├── _index.md                 # Главная страница модуля
 │   ├── intro/                    # Введение
 │   ├── topic-01/                 # Темы курса
-│   ├── topic-02/
 │   └── tests/
 │       └── quiz-01.json          # Quiz Engine тесты
 └── .github/workflows/
@@ -196,9 +194,9 @@ graph TD
     B --> C[Notify Hub Workflow]
     C --> D[Repository Dispatch to infotecha]
     D --> E[Module Updated Handler]
-    E --> F[Update modules.json]
-    F --> G[Trigger Build Module]
-    G --> H[Clone hugo-base + mod_content]
+    E --> F[Read module.json from mod_*]
+    F --> G[Trigger Build Module with hugo-templates]
+    G --> H[Clone hugo-templates + mod_content]
     H --> I[Hugo Build Process]
     I --> J[Deploy to Production]
     J --> K[Apache Reload]
@@ -207,12 +205,10 @@ graph TD
 #### 2. Автоматическая сборка модуля
 ```yaml
 # Ключевые этапы build-module.yml
-- Checkout hugo-base template
-- Checkout module content  
-- Merge content with template
-- Update Hugo configuration
-- Initialize Git submodules
-- Run Hugo build
+- Read module.json from the updated module repository
+- Checkout hugo-templates repository
+- Checkout module content
+- Run hugo-templates build script with parameters from module.json
 - Deploy to /var/www/infotecha.ru/
 - Reload Apache2
 ```
@@ -221,9 +217,9 @@ graph TD
 
 ### Рабочий процесс
 1. Изменение контента модуля (git push)
-2. GitHub webhook активирует workflow
-3. Объединение hugo-base + mod_content
-4. Hugo build процесс
+2. GitHub webhook активирует workflow в `infotecha`
+3. `infotecha` читает `module.json` из измененного модуля
+4. Запускается сборка с помощью `hugo-templates` на основе конфигурации из `module.json`
 5. Деплой на сервер (/var/www/infotecha.ru/)
 6. Apache reload для применения изменений
 
@@ -261,11 +257,10 @@ graph TD
 ### ✅ Полностью функциональные компоненты
 1. **Центральная платформа (infotecha)**
    - Главная страница с каталогом модулей
-   - modules.json реестр
-   - Автоматизированные workflows
+   - Автоматизированные workflows для запуска сборок
 
-2. **Hugo-base template**
-   - Базовый шаблон для всех модулей
+2. **Hugo-templates factory**
+   - Фабрика шаблонов для всех модулей
    - Compose theme integration
    - Quiz Engine интеграция
 

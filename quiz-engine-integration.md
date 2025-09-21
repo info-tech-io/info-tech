@@ -17,18 +17,17 @@ info-tech-io (GitHub organization)
 ├── quiz/                          # Репозиторий Quiz Engine
 │   ├── src/quiz-engine/
 │   │   ├── quiz-engine.mjs       # Основной модуль
-│   │   ├── config.js             # Конфигурация
-│   │   ├── i18n.js              # Интернационализация
-│   │   └── quiz-types/          # Типы вопросов
-│   └── quiz-examples/           # Примеры тестов
+│   │   └── ...
 │
-├── hugo-base/                    # Базовый шаблон для всех модулей
-│   ├── static/quiz/             # Quiz Engine файлы (копия из quiz/)
-│   ├── layouts/shortcodes/
-│   │   └── quiz.html            # Hugo shortcode
-│   └── themes/compose/          # Hugo тема
+├── hugo-templates/               # Фабрика шаблонов
+│   ├── components/quiz-engine/  # Компонент Quiz Engine
+│   │   ├── static/quiz/         # Файлы Quiz Engine
+│   │   └── layouts/shortcodes/
+│   │       └── quiz.html        # Hugo shortcode
+│   └── templates/default/       # Пример шаблона, использующего Quiz Engine
 │
 └── mod_linux_base/              # Образовательный модуль
+    ├── module.json              # Указывает на использование компонента quiz-engine
     ├── content/lessons/
     └── static/quizzes/
         ├── basics-01.json       # Тесты модуля
@@ -37,16 +36,16 @@ info-tech-io (GitHub organization)
 
 ### Принцип интеграции
 
-1. **Прямое включение**: Quiz Engine копируется в `hugo-base/static/quiz/`
-2. **Hugo shortcode**: Простое встраивание через `{{< quiz src="quiz.json" >}}`
-3. **Статическая сборка**: Все файлы включаются в финальную сборку модуля
-4. **Единая версия**: Все модули используют одну версию Quiz Engine из hugo-base
+1.  **Компонентная система**: Quiz Engine является компонентом в `hugo-templates`.
+2.  **Декларативное включение**: Мод��ль активирует Quiz Engine, добавляя `"quiz-engine"` в массив `components` в своем `module.json`.
+3.  **Hugo shortcode**: Простое встраивание через `{{< quiz src="quiz.json" >}}`.
+4.  **Статическая сборка**: `hugo-templates` автоматически включает необходимые файлы Quiz Engine при сборке модуля.
 
 ## 🔧 Техническая реализация
 
 ### Hugo Shortcode
 
-**Файл:** `hugo-base/layouts/shortcodes/quiz.html`
+**Файл:** `hugo-templates/components/quiz-engine/layouts/shortcodes/quiz.html`
 
 ```html
 {{- $src := .Get "src" -}}
@@ -168,31 +167,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout hugo-base
+    - name: Checkout hugo-templates
       uses: actions/checkout@v4
       with:
-        repository: info-tech-io/hugo-base
-        path: hugo-base
-        
+        repository: info-tech-io/hugo-templates
+        path: hugo-templates
+
     - name: Checkout module content
       uses: actions/checkout@v4
       with:
         repository: info-tech-io/${{ github.event.client_payload.module }}
         path: module-content
-        
-    - name: Merge content with base
+
+    - name: Read module.json and build
       run: |
-        cp -r module-content/content/* hugo-base/content/
-        cp -r module-content/static/* hugo-base/static/
-        
-    - name: Build with Hugo
-      run: |
-        cd hugo-base
-        hugo --minify
-        
+        # Скрипт из hugo-templates читает module.json и запускает сборку
+        ./hugo-templates/scripts/build.sh --module-path ./module-content
+
     - name: Deploy to production
       run: |
-        rsync -avz hugo-base/public/ server:/var/www/infotecha.ru/module-name/
+        rsync -avz module-content/public/ server:/var/www/infotecha.ru/module-name/
 ```
 
 ## 📊 Реальные результаты интеграции
@@ -226,14 +220,13 @@ jobs:
 
 ### Простой процесс обновления
 
-1. **Обновление в репозитории `quiz`**
-2. **Копирование в `hugo-base`:**
-   ```bash
-   # Автоматическое обновление через GitHub Actions
-   cp -r quiz/src/ hugo-base/static/quiz/src/
-   cp -r quiz/assets/ hugo-base/static/quiz/assets/
-   ```
-3. **Автоматический rebuild** всех модулей
+1.  **Обновление в репозитории `quiz`**
+2.  **Обновление компонента в `hugo-templates`:**
+    ```bash
+    # Автоматическое обновление через GitHub Actions
+    ./hugo-templates/scripts/update-component.sh --name quiz-engine --from-repo quiz
+    ```
+3.  **Автоматический rebuild** всех модулей, использующих компонент.
 
 ### Версионирование
 
@@ -271,7 +264,7 @@ jobs:
 
 ## Заключение
 
-Интеграция Quiz Engine в платформу "ИНФОТЕКА" прошла успешно с использованием простого и надежного подхода. Выбор в пользу прямого включения в базовый шаблон Hugo оказался правильным для MVP этапа, обеспечив:
+Интеграция Quiz Engine в платформу "ИНФОТЕКА" прошла успешно с использованием компонентного подхода в `hugo-templates`. Это обеспечивает:
 
 - **Быстрая реализация**: Интеграция заняла 1 неделю вместо планируемых 2-3
 - **Высокая надежность**: 0 проблем с зависимостями
