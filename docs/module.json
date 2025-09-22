@@ -1,0 +1,26 @@
+{
+  "name": "info-tech-corporate",
+  "version": "1.0.0",
+  "type": "corporate",
+  "build": {
+    "template": "corporate",
+    "theme": "compose",
+    "components": ["compose-theme"]
+  },
+  "site": {
+    "title": "InfoTech.io",
+    "description": "Open Source Educational Technology Organization",
+    "baseURL": "https://info-tech.io",
+    "language": "ru",
+    "author": "InfoTech.io Organization"
+  },
+  "content": {
+    "source": "./content",
+    "destination": "info-tech"
+  },
+  "build_settings": {
+    "hugo_version": "0.110.0",
+    "enable_analytics": false,
+    "enable_blog": true
+  }
+}
