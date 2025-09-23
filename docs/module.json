@@ -1,26 +1,51 @@
 {
   "name": "info-tech-corporate",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "type": "corporate",
   "build": {
     "template": "corporate",
     "theme": "compose",
-    "components": ["compose-theme"]
+    "components": [
+      "search",
+      "analytics",
+      "social-sharing"
+    ]
   },
   "site": {
-    "title": "InfoTech.io",
-    "description": "Open Source Educational Technology Organization",
+    "title": "InfoTech.io - Open Source Educational Technology",
+    "description": "Building the future of open source education technology. Interactive learning platforms, developer tools, and community-driven educational content.",
     "baseURL": "https://info-tech.io",
-    "language": "ru",
+    "language": "en",
     "author": "InfoTech.io Organization"
   },
   "content": {
     "source": "./content",
     "destination": "info-tech"
   },
+  "features": {
+    "enableSearch": true,
+    "enableAnalytics": true,
+    "enableComments": false,
+    "enableSocialSharing": true,
+    "enableBlog": true
+  },
+  "corporate": {
+    "showTeam": false,
+    "showTestimonials": false,
+    "enableContactForm": true,
+    "showProducts": true,
+    "showOpenSource": true
+  },
+  "seo": {
+    "enableSitemap": true,
+    "enableRobots": true,
+    "enableStructuredData": true,
+    "enableOpenGraph": true,
+    "enableTwitterCard": true
+  },
   "build_settings": {
-    "hugo_version": "0.110.0",
-    "enable_analytics": false,
-    "enable_blog": true
+    "hugo_version": "0.148.0",
+    "enable_minification": true,
+    "enable_fingerprinting": true
   }
 }

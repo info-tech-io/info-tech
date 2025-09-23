@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://info-tech.io/sitemap.xml
+
+# Allow all search engines to crawl
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow admin areas (if any)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.git/
+Disallow: /tmp/
+
+# Allow all educational content
+Allow: /about/
+Allow: /products/
+Allow: /open-source/
+Allow: /blog/

@@ -37,23 +37,40 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.110.0'
+          hugo-version: '0.148.0'
           extended: true
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
 
-      - name: Build with Hugo
+      - name: Build with Hugo Templates Factory
         working-directory: hugo-templates
         run: |
-          # Copy module content
+          # Copy entire docs directory as module content
           cp -r ../docs ./module-content
 
-          # Run build script with correct parameters
+          # Install dependencies
           npm install
+
+          # Make build script executable
           chmod +x scripts/build.sh
-          scripts/build.sh --template corporate --content ./module-content/content --output ./dist
+
+          # Build using module.json configuration
+          scripts/build.sh --config ./module-content/module.json --output ./dist
+
+      - name: Verify build output
+        run: |
+          echo "Build output structure:"
+          ls -la hugo-templates/dist/
+          echo "Index file check:"
+          if [ -f "hugo-templates/dist/index.html" ]; then
+            echo "✅ Index file exists"
+            head -10 hugo-templates/dist/index.html
+          else
+            echo "❌ Index file missing"
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
