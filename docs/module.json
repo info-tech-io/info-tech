@@ -2,14 +2,11 @@
   "name": "info-tech-corporate",
   "version": "2.1.0",
   "type": "corporate",
-  "build": {
+  "hugo_config": {
     "template": "corporate",
     "theme": "compose",
-    "components": [
-      "search",
-      "analytics",
-      "social-sharing"
-    ]
+    "components": [],
+    "hugo_version": "0.148.0"
   },
   "site": {
     "title": "InfoTech.io - Open Source Educational Technology",
