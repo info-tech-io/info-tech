@@ -381,10 +381,11 @@ SSL/TLS:
 │   └── assets/ (Shared resources)
 ├── info-tech.io/
 │   ├── index.html (Corporate site)
-│   ├── quiz/ (Quiz Engine docs)
-│   ├── hugo/ (Hugo Templates docs)
-│   ├── terminal/ (Web Terminal docs)
-│   └── cli/ (InfoTech CLI docs)
+│   ├── docs/
+│   │   ├── quiz/ (Quiz Engine docs)
+│   │   ├── hugo-templates/ (Hugo Templates docs)
+│   │   ├── web-terminal/ (Web Terminal docs)
+│   │   └── info-tech-cli/ (InfoTech CLI docs)
 └── logs/
     ├── access.log
     ├── error.log
