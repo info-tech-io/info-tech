@@ -1,45 +1,48 @@
 {
-  "schema_version": "1.0",
   "name": "info-tech-corporate",
-  "title": "InfoTech.io - Open Source Educational Technology",
-  "description": "Building the future of open source education technology. Interactive learning platforms, developer tools, and community-driven educational content.",
   "version": "2.1.0",
   "type": "corporate",
-
-  "deployment": {
-    "subdomain": "info-tech",
-    "repository": "info-tech",
-    "build_system": "hugo-templates"
-  },
-
   "hugo_config": {
-    "template": "default",
+    "template": "corporate",
     "theme": "compose",
     "components": [],
     "hugo_version": "0.148.0"
   },
-
-  "metadata": {
-    "author": "InfoTech.io Team",
-    "maintainer": "info-tech-io",
-    "license": "MIT",
-    "difficulty": "general",
-    "estimated_time": "N/A",
+  "site": {
+    "title": "InfoTech.io - Open Source Educational Technology",
+    "description": "Building the future of open source education technology. Interactive learning platforms, developer tools, and community-driven educational content.",
+    "baseURL": "https://info-tech.io",
     "language": "en",
-    "tags": ["corporate", "open-source", "education-technology", "organization"]
+    "author": "InfoTech.io Organization"
   },
-
-  "urls": {
-    "production": "https://info-tech-io.github.io",
-    "repository": "https://github.com/info-tech-io/info-tech",
-    "issues": "https://github.com/info-tech-io/info-tech/issues"
+  "content": {
+    "source": "./content",
+    "destination": "info-tech"
   },
-
-  "status": {
-    "lifecycle": "stable",
-    "last_updated": "2025-09-26",
-    "content_complete": true,
-    "testing_complete": false,
-    "review_complete": true
+  "features": {
+    "enableSearch": true,
+    "enableAnalytics": true,
+    "enableComments": false,
+    "enableSocialSharing": true,
+    "enableBlog": true
+  },
+  "corporate": {
+    "showTeam": false,
+    "showTestimonials": false,
+    "enableContactForm": true,
+    "showProducts": true,
+    "showOpenSource": true
+  },
+  "seo": {
+    "enableSitemap": true,
+    "enableRobots": true,
+    "enableStructuredData": true,
+    "enableOpenGraph": true,
+    "enableTwitterCard": true
+  },
+  "build_settings": {
+    "hugo_version": "0.148.0",
+    "enable_minification": true,
+    "enable_fingerprinting": true
   }
 }
