@@ -102,7 +102,7 @@ Flexible framework for rapid creation of Hugo-based static sites with various te
 - ⚡ **Sub-500ms** page load times
 - 🏆 **Lighthouse scores 95+** on all sites
 - 🔒 **SSL Grade A+** security ratings
-- 📱 **Mobile-first** responsive design
+- ���� **Mobile-first** responsive design
 
 ## 🎓 For Learners
 
@@ -164,3 +164,4 @@ Flexible framework for rapid creation of Hugo-based static sites with various te
 *Ready to contribute? Check out our [Developer Guide](/open-source/onboarding/) to get started!*
 
 <!-- Test build: 2025-09-23 16:20 -->
+<!-- Trigger build -->
