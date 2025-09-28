@@ -27,6 +27,7 @@ schema:
   description: "Open source educational technology organization"
 ---
 
+
 # InfoTech.io
 
 **Building the future of open source education technology.**
