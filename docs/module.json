@@ -11,13 +11,13 @@
   "site": {
     "title": "InfoTech.io - Open Source Educational Technology",
     "description": "Building the future of open source education technology. Interactive learning platforms, developer tools, and community-driven educational content.",
-    "baseURL": "https://info-tech.io",
+    "baseURL": "https://info-tech-io.github.io",
     "language": "en",
     "author": "InfoTech.io Organization"
   },
   "content": {
     "source": "./content",
-    "destination": "info-tech"
+    "destination": ""
   },
   "features": {
     "enableSearch": true,
