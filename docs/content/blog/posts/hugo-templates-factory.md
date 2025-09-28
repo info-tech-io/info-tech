@@ -463,13 +463,11 @@ File permissions in Linux control who can read, write, and execute files.
 - **Write (w)**: Modify file contents
 - **Execute (x)**: Run file as program
 
-<!-- {{< quiz id="linux-permissions-01" config="beginner" >}} -->
 
 ## Advanced Permissions
 
 For more complex scenarios, Linux provides additional permission mechanisms...
 
-<!-- {{< quiz id="linux-permissions-02" config="advanced" >}} -->
 ```
 
 ### Theme System Architecture
