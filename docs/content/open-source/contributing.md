@@ -173,7 +173,7 @@ What to read or do next
 
 ### Epic Issues + Child Issues + Feature Branches Strategy
 
-For complex, multi-week development tasks, InfoTech.io follows an industry-standard workflow that ensures traceability, systematic progress tracking, and manageable development cycles.
+For complex, multi-week development tasks, InfoTech.io follows an industry-standard workflow that ensures traceability, systematic progress tracking, and manageable development cycles. This process mandates the creation of detailed, version-controlled implementation plans before coding begins.
 
 #### When to Use This Workflow
 - **Large Features**: Development tasks requiring 4+ days of work
@@ -185,84 +185,92 @@ For complex, multi-week development tasks, InfoTech.io follows an industry-stand
 #### Workflow Structure
 
 ##### 1. Epic Issue Creation
-Create a comprehensive Epic Issue in the primary repository that serves as the central coordination point:
-
-```markdown
-# Epic Issue Template
-
-## Epic: [DESCRIPTIVE_NAME] v[VERSION]
-
-### Overview
-**Problem Statement**: Clear description of what problem this epic solves
-**Strategic Value**: Why this work is important for the project
-**Success Criteria**: Measurable outcomes that define completion
-
-### Technical Scope
-**Architecture Impact**: Components and systems affected
-**Breaking Changes**: Any backward compatibility concerns
-**Dependencies**: External or internal dependencies
-**Risk Assessment**: Potential challenges and mitigation strategies
-
-### Implementation Strategy
-**Epic Branch**: `epic/[descriptive-name]-v[version]`
-**Estimated Timeline**: X weeks (with buffer)
-**Resource Requirements**: Team members, external dependencies
-**Quality Gates**: Testing, review, and validation requirements
-
-### Child Issues Breakdown
-- [ ] #XXX: [Component 1]: Specific technical task
-- [ ] #XXX: [Component 2]: Specific technical task
-- [ ] #XXX: [Integration]: Integration and testing
-- [ ] #XXX: [Documentation]: Documentation updates
-- [ ] #XXX: [Deployment]: Production deployment
-
-### Progress Tracking
-**Epic Progress**: 0/X child issues completed
-**Current Phase**: Planning | Development | Testing | Integration | Deployment
-**Blockers**: List any current blockers
-**Risks**: Track emerging risks during development
-
-### Communication
-**Stand-up Schedule**: Daily/Weekly check-ins if needed
-**Review Gates**: Milestone review points
-**Stakeholders**: Who needs to be kept informed
-```
+Create a comprehensive Epic Issue in the primary repository that serves as the central coordination point. Use the standard "Epic Issue Template" for this.
 
 ##### 2. Child Issues Creation
-Break down the epic into specific, actionable child issues:
+Break down the epic into specific, actionable child issues. Each child issue should represent a logical, self-contained block of work. Use the "Child Issue Template".
 
-```markdown
-# Child Issue Template
+##### 3. Implementation Proposal (Design Phase)
+This is a mandatory step before any code is written. The goal is to create a detailed, reviewable plan. All proposals are stored in the `docs/proposals` directory of the relevant repository.
 
-## [Component]: [Specific Task]
+###### Directory Structure
+A dedicated directory must be created for each Epic or standalone Issue to house all related design documents.
 
-**Parent Epic**: #[EPIC_NUMBER] - [Epic Name]
-**Type**: Bug Fix | Feature | Refactor | Documentation | Testing
-**Priority**: Critical | High | Medium | Low
-**Estimated Effort**: X hours/days
+**For an Epic Issue:**
+The structure is nested to reflect the parent-child relationship.
 
-### Task Description
-**Objective**: What specifically needs to be accomplished
-**Acceptance Criteria**:
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Testing requirements
-- [ ] Documentation requirements
-
-### Technical Details
-**Files to Modify**: List specific files or modules
-**Dependencies**: Other child issues that must be completed first
-**Testing Strategy**: How this will be tested
-**Rollback Plan**: How to undo changes if needed
-
-### Implementation Notes
-**Approach**: Technical approach or algorithm
-**Edge Cases**: Special cases to handle
-**Performance Considerations**: Impact on performance
-**Security Considerations**: Security implications
+```
+docs/proposals/
+└── epic-[epic_number]-[epic-title-slug]/
+    ├── progress.md  (Overall Epic visualization)
+    ├── child-[child_number]-[child-title-slug]/
+    │   ├── design.md
+    │   ├── progress.md
+    │   ├── 001-step-one.md
+    │   └── 002-step-two.md
+    └── child-[another_child_number]-[another-title-slug]/
+        └── ...
 ```
 
-##### 3. Epic Branch Strategy
+**For a standalone Issue:**
+The structure is simpler.
+
+```
+docs/proposals/
+└── [issue_number]-[issue-title-slug]/
+    ├── design.md
+    ├── progress.md
+    ├── 001-step-one.md
+    └── 002-step-two.md
+```
+
+###### Proposal Documents
+- **`design.md`**: The high-level implementation plan. This document outlines the major stages of work, corresponding to the future Pull Request's scope. It should contain:
+    - A clear problem statement.
+    - A description of the proposed technical solution.
+    - A list of high-level implementation stages (e.g., "1. Refactor module X", "2. Implement feature Y", "3. Add test coverage").
+    - Links to the detailed step files (`001-*.md`, etc.).
+
+- **`00X-step-name.md`**: Detailed, step-by-step action plans. Each file corresponds to a high-level stage from `design.md`. It breaks the stage down into concrete actions, where each action ideally results in a single, atomic commit.
+    - **After a step is completed, this file MUST be updated with a "Done" status and a direct link to the commit that implemented it.**
+
+- **`progress.md`**: A visualization of the implementation progress using Mermaid.js. This file acts as a live dashboard for the Issue.
+    - For Epics, it visualizes the status of its Child Issues.
+    - For Child/standalone Issues, it visualizes the status of the implementation stages from `design.md`.
+    - **This file MUST be updated as stages are completed.**
+
+###### Example `progress.md` for a Child Issue:
+```markdown
+# Progress: [Issue Title]
+
+```mermaid
+graph TD
+    subgraph "Implementation Plan"
+        A[Stage 1: Scaffolding] --> B[Stage 2: Business Logic];
+        B --> C[Stage 3: Integration];
+        C --> D[Stage 4: Testing];
+        D --> E[Stage 5: Documentation];
+    end
+
+    style A fill:#9f9,stroke:#333,stroke-width:2px
+    style B fill:#9f9,stroke:#333,stroke-width:2px
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style D fill:#ff9,stroke:#333,stroke-width:2px
+    style E fill:#ccc,stroke:#333,stroke-width:2px
+
+    click A "link-to-001.md" "Stage 1 Details"
+    click B "link-to-002.md" "Stage 2 Details"
+```
+*This graph shows Stage 1 & 2 as completed, Stage 3 as in-progress, Stage 4 as planned, and Stage 5 as not started.*
+```
+
+###### Design Review Process
+1.  Before writing implementation code, the contributor creates the necessary proposal directory and files (`design.md`, `progress.md`, `00X-*.md`).
+2.  A **Draft Pull Request** is opened. The only changes in this PR are the new files in `docs/proposals/`.
+3.  The team reviews the **plan**, not the code. This is a critical quality gate to catch architectural issues early.
+4.  Once the plan is approved, the Design PR is merged into the `epic/...` branch (or `main` for standalone issues).
+
+##### 4. Epic Branch Strategy
 Create a long-lived epic branch that serves as the integration point:
 
 ```bash
@@ -270,138 +278,76 @@ Create a long-lived epic branch that serves as the integration point:
 git checkout main
 git pull origin main
 git checkout -b epic/build-system-v2.0
-
-# Feature branches branch off from epic branch
-git checkout epic/build-system-v2.0
-git checkout -b feature/error-handling-system
-# Work on specific feature
-git commit -m "feat: implement comprehensive error handling"
-git push origin feature/error-handling-system
-
-# Create PR: feature/error-handling-system → epic/build-system-v2.0
-# After review and merge, continue with next feature branch
 ```
 
-##### 4. Development and Integration Cycle
-Follow this systematic development pattern:
+##### 5. Development and Integration Cycle
+Follow this systematic development pattern for each child issue:
 
 ```bash
 # For each child issue:
 
-# 1. Create feature branch from epic branch
+# 1. Ensure the Implementation Proposal is approved and merged.
+
+# 2. Create feature branch from the epic branch
 git checkout epic/[epic-name]
 git pull origin epic/[epic-name]
 git checkout -b feature/[specific-task]
 
-# 2. Implement the specific change
-# Focus only on this child issue's requirements
-# Include tests and documentation
+# 3. Implement a specific action from a detailed step file (e.g., 001-step-one.md)
+# Focus only on this action.
 
-# 3. Create PR to epic branch
+# 4. Commit your changes with a clear message referencing the issue.
+git commit -m "feat: implement error constants for #3"
+git push origin feature/[specific-task]
+
+# 5. (CRITICAL) Update the proposal documents
+#    - Edit the corresponding step file (e.g., `001-step-one.md`) to mark the action as complete
+#      and add a link to your commit hash.
+#    - Edit `progress.md` to update the visualization.
+#    - Commit these documentation changes.
+git add docs/proposals/
+git commit -m "docs: update progress for step 1.1 on #3"
+git push
+
+# 6. Repeat steps 3-5 until a full stage is complete.
+
+# 7. Create a PR to the epic branch
 # Title: "feat: [specific task] (#child-issue-number)"
-# Reference parent epic in description
+# The PR should contain both implementation and documentation changes.
 
-# 4. Code review and merge to epic branch
-# Update child issue as completed
-# Update epic issue progress
+# 8. Code review and merge to epic branch.
 
-# 5. Epic branch integration testing
-# Ensure all components work together
-# Run comprehensive test suite
-
-# 6. Final PR: epic branch → main
-# After all child issues completed
-# Comprehensive review by maintainers
-# Full CI/CD validation before merge
+# 9. Once all child issues are complete, create the final PR: epic branch → main.
+# This PR will be a comprehensive summary of all work done.
 ```
 
-#### Example: Hugo Templates Build System v2.0
-
-Here's how we apply this workflow to our current hugo-templates stability issue:
-
-**Epic Issue**: `hugo-templates/#1 - Build System v2.0`
-- **Epic Branch**: `epic/build-system-v2.0`
-- **Child Issues**:
-  - `#2`: Error handling system with comprehensive logging
-  - `#3`: Test coverage framework for build scripts
-  - `#4`: GitHub Actions optimization and debugging
-  - `#5`: Documentation and troubleshooting guides
-  - `#6`: Performance optimization and caching
-
-**Benefits of This Approach**:
-- **Traceability**: Complete history from problem to solution
-- **Manageable Scope**: Each child issue is 1-2 days of focused work
-- **Parallel Development**: Multiple developers can work on different child issues
-- **Quality Control**: Epic branch allows integration testing before main merge
-- **Progress Visibility**: Clear progress tracking for stakeholders
-- **Risk Mitigation**: Epic branch isolation prevents main branch instability
+#### Benefits of This Approach**:
+- **Full Traceability**: Complete, version-controlled history from problem to plan to code.
+- **Proactive Reviews**: Architectural decisions are reviewed before implementation, saving time.
+- **Living Documentation**: The `docs/proposals` directory becomes a self-updating knowledge base.
+- **Enhanced Visibility**: Mermaid diagrams provide an at-a-glance view of progress for all stakeholders.
+- **Clarity of Scope**: Developers work from a pre-approved, detailed plan, reducing ambiguity.
 
 #### Quality Gates and Reviews
 
-##### Epic Planning Review
-- [ ] Epic scope is well-defined and bounded
-- [ ] Child issues cover all necessary work
-- [ ] Dependencies are identified and planned
-- [ ] Timeline includes adequate buffer for testing
-- [ ] Risk assessment is comprehensive
+##### Design Proposal Review
+- [ ] Proposal directory structure is correct.
+- [ ] `design.md` clearly outlines the solution and high-level stages.
+- [ ] Detailed steps (`00X-*.md`) are logical and actionable.
+- [ ] `progress.md` visualization accurately reflects the plan.
 
-##### Child Issue Reviews
-- [ ] Child issue has clear acceptance criteria
-- [ ] Technical approach is sound
-- [ ] Testing strategy is adequate
-- [ ] Documentation requirements are met
-- [ ] No regression risks identified
+##### Child Issue PR Reviews
+- [ ] Code changes align with the approved design documents.
+- [ ] All commits are linked back from the design documents.
+- [ ] The `progress.md` file has been correctly updated.
+- [ ] Standard code quality and testing requirements are met.
 
 ##### Epic Integration Review
-- [ ] All child issues are completed and tested
-- [ ] Epic branch has comprehensive integration tests
-- [ ] Performance impact is acceptable
-- [ ] Documentation is updated and accurate
-- [ ] Deployment plan is tested and validated
+- [ ] All child issues are completed and tested.
+- [ ] All proposal documents are finalized.
+- [ ] Epic branch has comprehensive integration tests.
+- [ ] Final `progress.md` for the epic shows 100% completion.
 
-##### Pre-Merge Review
-- [ ] Full CI/CD pipeline passes
-- [ ] Code review by at least 2 maintainers
-- [ ] Manual testing of critical paths
-- [ ] Rollback plan is prepared and tested
-- [ ] Stakeholder sign-off obtained
-
-#### Tools Integration
-
-##### GitHub Integration
-```markdown
-# Epic Issue Linking
-Closes #child-issue-1
-Closes #child-issue-2
-Related to #upstream-dependency
-
-# PR Templates for Epic Work
-**Epic**: #[epic-number] - [Epic Name]
-**Child Issue**: #[child-issue] - [Specific Task]
-**Type**: Feature | Bug Fix | Refactor | Documentation
-
-## Epic Context
-Brief explanation of how this PR fits into the larger epic
-
-## Changes Made
-- Specific change 1
-- Specific change 2
-
-## Testing
-- [ ] Unit tests updated
-- [ ] Integration tests pass
-- [ ] Epic branch integration tested
-
-## Epic Progress
-X of Y child issues completed after this merge
-```
-
-##### Project Board Setup
-- **Epic Tracking Board**: High-level view of all active epics
-- **Sprint Board**: Current week's child issues across all epics
-- **Milestone Integration**: Epic completion tied to project milestones
-
-This workflow ensures that large, complex development tasks are managed systematically while maintaining code quality, project stability, and team coordination. It's particularly valuable for infrastructure changes, major features, and critical bug fixes that affect multiple system components.
 
 ### 1. Planning Phase
 
