@@ -171,6 +171,8 @@ What to read or do next
 
 ## 🔄 Contribution Workflow
 
+> **📚 For a comprehensive, step-by-step guide** with detailed examples, commit sequences, Mermaid diagrams, and templates, see our **[Complete Issue and Commit Workflow Guide](/open-source/issue-commit-workflow/)**.
+
 ### Epic Issues + Child Issues + Feature Branches Strategy
 
 For complex, multi-week development tasks, InfoTech.io follows an industry-standard workflow that ensures traceability, systematic progress tracking, and manageable development cycles. This process mandates the creation of detailed, version-controlled implementation plans before coding begins.

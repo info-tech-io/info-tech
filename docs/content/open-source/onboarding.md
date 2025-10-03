@@ -309,6 +309,8 @@ cspell "content/**/*.md"
 
 ## 🔄 Contribution Workflow
 
+> **📚 New to our workflow?** Read the **[Complete Issue and Commit Workflow Guide](/open-source/issue-commit-workflow/)** for detailed examples, templates, and step-by-step instructions.
+
 ### Planning Phase
 1. **Check existing issues** to avoid duplication
 2. **Discuss significant changes** in GitHub Discussions
@@ -367,8 +369,9 @@ Brief description of changes
 ### Required Reading
 1. **[InfoTech.io Architecture](/open-source/architecture/)**
 2. **[Contributing Guidelines](/open-source/contributing/)**
-3. **Project-specific README files**
-4. **[Code of Conduct](https://github.com/info-tech-io/.github/blob/main/CODE_OF_CONDUCT.md)**
+3. **[Issue and Commit Workflow Guide](/open-source/issue-commit-workflow/)**
+4. **Project-specific README files**
+5. **[Code of Conduct](https://github.com/info-tech-io/.github/blob/main/CODE_OF_CONDUCT.md)**
 
 ### Recommended Learning
 1. **Hugo Documentation**: [gohugo.io/documentation](https://gohugo.io/documentation/)
