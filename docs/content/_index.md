@@ -164,5 +164,6 @@ Flexible framework for rapid creation of Hugo-based static sites with various te
 
 *Ready to contribute? Check out our [Developer Guide](/open-source/onboarding/) to get started!*
 
-<!-- Test build: 2025-09-28 18:05 -->
-<!-- Trigger deployment test for Etap 4 -->
+<!-- Updated: 2025-10-05 16:54 -->
+<!-- Testing intelligent caching system with cache invalidation -->
+<!-- Issues #14 and #22 resolved - cache now works correctly -->
