@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Message xmlns="http://tempuri.org/XMLSchema.xsd">
+<MessageBodyMetaData>
+<PackageId>ВО-3</PackageId>
+<MessageNumber>1</MessageNumber>
+<MessageNumberTotal>1</MessageNumberTotal>
+<ObjectId>0103</ObjectId>
+<TimeStamp>2025-10-14T09:08:54</TimeStamp>
+</MessageBodyMetaData>
+<MessageBodyData>
+<Event>Data supplied</Event>
+<ASBO>
+<LineID>1</LineID>
+<OST>54</OST>
+<CalDay>2025-10-10</CalDay>
+<Program>302</Program>
+<NsiMtr>5374958</NsiMtr>
+<Schedule>2</Schedule>
+<MtrCateg>2</MtrCateg>
+<NsiUnits>166</NsiUnits>
+<MTRnumber>5374958</MTRnumber>
+<Contact>1000 Начальник ОМТС филиала ЦБПО Селюгин Д.В. 6855-35-33</Contact>
+<Location>089835</Location>
+<ProgramAim>302</ProgramAim>
+<ProgramAimObject>Сырье для изготовления собственной продукции</ProgramAimObject>
+<SourceAim>003 МТР не использованы в операционной деятельности в течение 12 календарных месяцев с даты оприходования на склад или с даты перевода из категории резервов</SourceAim>
+<MainReason>004 Закупка МТР в объемах, превышающих реальную потребность</MainReason>
+<Value>5.000000000</Value>
+<Ammount>141.670000000</Ammount>
+<LusMtr>5374958</LusMtr>
+<LusEi>166</LusEi>
+<InvolvePlan>2026-05-30</InvolvePlan>
+<MtrOwner>22</MtrOwner>
+</ASBO>
+<ASBO>
+<LineID>1784</LineID>
+<OST>54</OST>
+<CalDay>2025-10-10</CalDay>
+<Program>301</Program>
+<NsiMtr>2454014</NsiMtr>
+<Schedule>4</Schedule>
+<MtrCateg>2</MtrCateg>
+<NsiUnits>796</NsiUnits>
+<MTRnumber>2454014</MTRnumber>
+<Contact>1000 Начальник ОКиМТС филиала КРНУ Ревацкий Р.С.(391)2632749</Contact>
+<Location>04980601</Location>
+<ProgramAim>301</ProgramAim>
+<ProgramAimObject>(ОБЪЕКТ ИСКЛЮЧЕН) Система телемеханизации МН Александровское - Анжеро-Судженск, участок РНУ Парабель (318 - 455 км) 4 КП, участок Томского РНУ (573 - 686 км) 2 КП. Техническое перевооружение.</ProgramAimObject>
+<SourceAim>002 МТР (поставки заказчика и подрядчика) не использованы по целевому назначению, в случае принятия ПАО "Транснефть" решения об отмене реализации или переносе срока реализации объекта (проекта) Программы развития, Программы КР, Программы ликвидации, ПКВ н</SourceAim>
+<MainReason>002 Решение об отмене реализации или переносе срока реализации объекта (проекта) Программы развития, Программы КР, Программы ликвидации, ПКВ на более поздний срок (более года)</MainReason>
+<Value>1.000000000</Value>
+<Ammount>37371.220000000</Ammount>
+<LusMtr>2454014</LusMtr>
+<LusEi>796</LusEi>
+<InvolvePlan>2026-04-15</InvolvePlan>
+<MtrOwner>21</MtrOwner>
+</ASBO>
+<ASBO>
+<LineID>1785</LineID>
+<OST>54</OST>
+<CalDay>2025-10-10</CalDay>
+<Program>302</Program>
+<NsiMtr>3032911</NsiMtr>
+<Schedule>4</Schedule>
+<MtrCateg>2</MtrCateg>
+<NsiUnits>796</NsiUnits>
+<MTRnumber>3032911</MTRnumber>
+<Contact>1000 Начальник ОКиМТС филиала КРНУ Ревацкий Р.С.(391)2632834</Contact>
+<ManufactureYear>2021</ManufactureYear>
+<Location>04980601</Location>
+<ProgramAim>302</ProgramAim>
+<ProgramAimObject>(ОБЪЕКТ ИСКЛЮЧЕН) Система телемеханизации МН Александровское - Анжеро-Судженск, участок РНУ Парабель (318 - 455 км) 4 КП, участок Томского РНУ (573 - 686 км) 2 КП. Техническое перевооружение.</ProgramAimObject>
+<SourceAim>002 МТР (поставки заказчика и подрядчика) не использованы по целевому назначению, в случае принятия ПАО "Транснефть" решения об отмене реализации или переносе срока реализации объе��та (проекта) Программы развития, Программы КР, Программы ликвидации, ПКВ н</SourceAim>
+<MainReason>002 Решение об отмене реализации или переносе срока реализации объекта (проекта) Программы развития, Программы КР, Программы ликвидации, ПКВ на более поздний срок (более года)</MainReason>
+<Value>2.000000000</Value>
+<Ammount>2831.300000000</Ammount>
+<LusMtr>3032911</LusMtr>
+<LusEi>796</LusEi>
+<InvolvePlan>2026-04-15</InvolvePlan>
+<MtrOwner>21</MtrOwner>
+</ASBO>
+</MessageBodyData>
+</Message>
